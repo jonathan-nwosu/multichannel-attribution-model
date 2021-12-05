@@ -17,18 +17,18 @@ H = heuristic_models(Data,"path","total_conversions",var_value="total_conversion
 
 M = markov_model(Data, "path", "total_conversions", var_value="total_conversion_value")
 
-# 5) Load Markov model
+# 5) Merge columns and data based on attribution model
 
 R = pd.merge(H,M,on="channel_name",how="inner")
 R1=R[["channel_name","first_touch_conversions","last_touch_conversions",\
       "linear_touch_conversions","total_conversions"]]
 
-# 6) Load Markov model
+# 6) Arrange columns for histogram
 R1.columns = ["channel_name","first_touch","last_touch","linear_touch","markov_model"]
 
 R1 = pd.melt(R1, id_vars="channel_name")
 
-# 7) Ploting data on histogram
+# 7) Plotting data on histogram
 
 data = [dict(
     type = "histogram",
